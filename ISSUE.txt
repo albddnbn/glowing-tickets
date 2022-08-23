@@ -1,0 +1,3 @@
+issue - when you move focus to another window like internet browser, then 
+come back to ticketsaver - like to copy a URL and try to paste into ticket response, 
+when you click into response area it wipes whatver you have typed

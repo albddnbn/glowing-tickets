@@ -1,0 +1,11 @@
+d2l access
+
+Hi $ticketowner,
+
+This is Alex from DTCC Tech Support. After you log in to my.dtcc.edu, and click on 'My Courses / D2L', Microsoft will prompt you for credentials. 
+
+Please enter your Delaware tech email address and password when this happens, and you should be able to proceed to D2L and access your course content.
+
+Please let me know if you are not able to access D2L after entering your Delaware Tech credentials when prompted.
+
+Thank you for your time.

@@ -1,0 +1,15 @@
+office365 dl
+
+Hi $ticketowner,
+
+This is Alex from DTCC Tech Support.
+
+Every DTCC account comes with a subscription to Microsoft Office 365.
+
+You can access it by logging into your account through https://office.com (sign in with your DTCC email address and password).
+
+Once you are logged in, click the 'Install Office' button located at the top of the page, on the right side. Choose 'Office 365 apps' to download the executable file which will allow you to install the apps on your device.
+
+Please let me know if you encounter any issues when trying to install Office 365 on your device.
+
+Thank you for your time.

@@ -7,13 +7,16 @@ from widget_style1 import padding
 # otherwise (its a button w/o image) so it will change bg and text colors
 def hover(event_data):
     widget = event_data.widget
-    if widget.image:
+    # if the widget has an image property value set - change it to the hover version
+    if widget.image != None:
+        print("image isnt none")
         widget.image = f"{widget.image[:-4]}_hover.png"
         if "home" not in widget.image:
             widget.height = widget.width = 25
         else:
             widget.height = 30
             widget.width = 75
+    # if there is no image property value set - then just change the background color and text color to hover version (white bg and dark blue text)
     else:
         widget.bg = "white"
         widget.text_color = "#00467f"
@@ -22,6 +25,7 @@ def hover(event_data):
 # otherwise change the bg and text color back to normal (dark blue and white)
 def normal_btn(event_data):
     widget = event_data.widget
+    # if the widget has an image property value set - change it to the normal version
     if widget.image:
         widget.image = f"{widget.image[:-10]}.png"
         if "home" in widget.image:
@@ -29,8 +33,10 @@ def normal_btn(event_data):
             widget.width = 75
         else:
             widget.height = widget.width = 25
+    # if there is no image property value set - then just change the background color and text color back to normal (dark blue bg and white text)
     else:
         widget.bg = "#00467f"
+        
         widget.text_color = "white"
 
 def switch_windows(tohide, toshow):
@@ -43,7 +49,7 @@ def erase_value(event_data):
     widget = event_data.widget
     widget.value = ""
     # set widget when clicked to nothing because you don't want user to click on the textbox while typing and lose all theyve typed
-    widget.when_clicked = None
+    widget.when_clicked = ""
 # SHOULD I STORE EACH RESPONSE AS A SEPARATE TXT FILE - TITLED THE SAME AS THE BUTTON IS TITLED? OR JUST HAVE ONE TXT ? I THINK ONE FOR EACH AT THIS POINT
 def main():
     def copyto_clip(title, name_txtbox):
@@ -59,7 +65,7 @@ def main():
                 line_w_name = line.replace("$ticketowner", usersname)
             else:
                 line_w_name = line
-            new_string += f"{line_w_name}\n"
+            new_string += f"{line_w_name}"
         pyperclip.copy(new_string)
         
         print('[**] DEBUG: Content copied.')
@@ -85,7 +91,7 @@ def main():
                         # since the two dicts share the same string keys, can destroy the padding as well
                         # resp_padding[btn].destroy()
 
-                    except ValueError:
+                    except (ValueError, AttributeError):
                         print(f"Could not delete: {widget}")
                         pass
             try:
@@ -166,14 +172,16 @@ def main():
                     # resp_btns[title]['btn'].bg = "#00467f"
                     # resp_btns[title]['btn'].text_color = "white"
                     # make cursor a target when hovering on the buttons
-                    resp_btns[title]['btn'].tk.config(cursor="target")
+                    # resp_btns[title]['btn'].tk.config(cursor="target")
 
                     # set common properties of buttons in resp_btns[title].keys()
                     for key in resp_btns[title].keys():
-                        resp_btns[title][key].when_mouse_enters = hover
-                        resp_btns[title][key].when_mouse_leaves = normal_btn
-                        resp_btns[title][key].bg = "#00467f"
-                        resp_btns[title][key].text_color = "white"
+                        # if its not the content key:
+                        if key not in ["content", "box", "pad1", "pad2", "pad3"]:
+                            resp_btns[title][key].when_mouse_enters = hover
+                            resp_btns[title][key].when_mouse_leaves = normal_btn
+                            resp_btns[title][key].bg = "#00467f"
+                            resp_btns[title][key].text_color = "white"
 
                 # close file
                 f.close()
@@ -247,7 +255,6 @@ def main():
 
     ##### Define VIEW RESPONSES Window and static contents   #####
     windows["view"] = Window(app, title="View Ticket Responses", bg="#01a161", height=600, width=400)
-
     # add title / other static widgets inside view resp window:
     Box(windows["view"], height=15, width="fill", align="top")
 
@@ -353,8 +360,9 @@ def main():
         reg_buttons[button].when_mouse_enters = hover
         reg_buttons[button].when_mouse_leaves = normal_btn
 
-    add_title_txtbox.when_clicked = erase_value
-    add_resp_txtbox.when_clicked = erase_value
+    # COMMENTING OUT THE ERASE_VALUE FUNCTION FOR NOW - BECAUSE OF THE ISSUE NOTED IN ISSUE.TXT
+    # add_title_txtbox.when_clicked = erase_value
+    # add_resp_txtbox.when_clicked = erase_value
     # assign functions to buttons:
     reg_buttons["view"].update_command(update_view_responses)
     # reg_buttons["add"].update_command(show_add_response, args=[windows["add"], app])
