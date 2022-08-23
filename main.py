@@ -134,8 +134,6 @@ def main():
                     resp_btns[title]['btn'] = PushButton(resp_btns[title]['box'], text=title, width=20, align="left")
 
                     resp_padding[title] = Box(view_resp_mainbox, height=15, width="fill")
-                    # from the 3rd line onwards will be the response content
-
 
                     # create edit button
                     resp_btns[title]['edit'] = PushButton(resp_btns[title]['box'], image="./img/edit.png", height=25, width=25, align="right")
@@ -155,17 +153,18 @@ def main():
                     # assign command to delete buttons
                     resp_btns[title]['delete'].update_command(delete_response, args=[title])
 
-
                     # 'pad1' key is the padding to the right of the main button (resp_btns[title]['btn'])
                     resp_btns[title]['pad1'] = Box(resp_btns[title]['box'], height="fill", width=20, align="right")
+                    
+                    # from the 3rd line onwards will be the response content
                     # skip the first two lines of the txt file - first line contains the title, and the second line is blank
                     for line in lines[2:]:
                         resp_btns[title]['content'].append(line)
                     # assign command to button:
                     resp_btns[title]['btn'].update_command(copyto_clip, args=[title, name_txtbox])
 
-                    resp_btns[title]['btn'].bg = "#00467f"
-                    resp_btns[title]['btn'].text_color = "white"
+                    # resp_btns[title]['btn'].bg = "#00467f"
+                    # resp_btns[title]['btn'].text_color = "white"
                     # make cursor a target when hovering on the buttons
                     resp_btns[title]['btn'].tk.config(cursor="target")
 
@@ -173,6 +172,8 @@ def main():
                     for key in resp_btns[title].keys():
                         resp_btns[title][key].when_mouse_enters = hover
                         resp_btns[title][key].when_mouse_leaves = normal_btn
+                        resp_btns[title][key].bg = "#00467f"
+                        resp_btns[title][key].text_color = "white"
 
                 # close file
                 f.close()
@@ -215,7 +216,6 @@ def main():
     def show_stored_greetings():
         pass
 
-
     ##### Widget Storage (mostly) Dictionaries  #####
     # dictionary to hold regular buttons (buttons w/no images that have dark blue bg and white text color)
     reg_buttons = {}
@@ -229,7 +229,7 @@ def main():
     # holds the Boxs (padding) that go below each resp_btn on the view reponses Window:
     resp_padding = {}
 
-
+    # define main App widget
     app = App(title="Ticket Responses", height=250, width=600, bg="#01a161")
     # define font for App - Roboto like dtcc.edu
     app.font = "Roboto"
