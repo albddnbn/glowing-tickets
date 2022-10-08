@@ -303,6 +303,7 @@ class ViewWindow(tk.Toplevel, CustomWidget):
                     # first line of each txt file will be button title/text
                     # also chop of \n with [:-1]
                     title = lines[0][:-1]
+                    print("viewing title: "+title)
                     # each response-*.txt file will have a key in the resp_btns dict,
                     # whose value will be another dictionary, the 'btn' key holds the main button that user presses to copy ticket response
                     # 'content' holds the ticket response content
@@ -338,16 +339,18 @@ class ViewWindow(tk.Toplevel, CustomWidget):
                     self.response_buttons[title]["delete"].pack(side=tk.LEFT, padx=5)
     
     # when edit button is clicked for a response - the create response window will open with the response's title / content inserted so it can be edited
-    def edit_response(self, resp_title):
+    def edit_response(self, respon_title):
+        print("editing: "+respon_title)
+        print(self.response_buttons["d2l access"]["content"])
         self.withdraw()
 
         # insert values into textboxes:
         self.add_window.title_entry.delete('1.0', 'end-1c')
-        self.add_window.title_entry.insert('1.0', resp_title)
+        self.add_window.title_entry.insert('1.0', respon_title)
         self.add_window.content_entry.delete('1.0', 'end-1c')
         # create string of content:
         new_string = ""
-        for line in self.response_buttons[resp_title]["content"]:
+        for line in self.response_buttons[respon_title]["content"]:
             new_string += line
         self.add_window.content_entry.insert('1.0', new_string)
 
