@@ -1,3 +1,0 @@
-when each resp button is created - create a checkbox to the left that says 'config' or something
-
-then if that checkbox is checked - little buttons will appear to the right of the resp button - to let user edit / delete the response

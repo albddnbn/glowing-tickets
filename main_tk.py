@@ -181,7 +181,7 @@ class BottomFrame(tk.Frame, CustomWidget):
 
         super().__init__(window, bg="#00a160")
         # home button photoimage
-        self.home_photo = tk.PhotoImage(file="home.png")
+        self.home_photo = tk.PhotoImage(file="./img/tkinter_img/home-tk.png")
         # btm_bars[key]["frame"] = tk.Frame(windows[key], bg="#00a160")
         self.home_button = tk.Button(self, image=self.home_photo, command=lambda: self.return_home(window, main_win, windows_dict))
         # self.home_button = tk.Button(self, image=self.home_photo, bg="#ffffff", command=lambda: self.return_home(view_win, main_win))
@@ -262,9 +262,9 @@ class ViewWindow(tk.Toplevel, CustomWidget):
         
         # create the edit and delete photos for icons:
         # define the trash icon picture photo
-        self.delete_img = tk.PhotoImage(file="delete.png")
+        self.delete_img = tk.PhotoImage(file="./img/tkinter_img/delete-tk.png")
         # define the edit icon
-        self.edit_img = tk.PhotoImage(file="edit.png")
+        self.edit_img = tk.PhotoImage(file="./img/tkinter_img/edit-tk.png")
         
         # create large frame to hold all response buttons / etc.
         self.view_response_frame = tk.Frame(self)
