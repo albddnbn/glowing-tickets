@@ -1,9 +1,0 @@
-transcript request
-
-Hi $ticketowner,
-
-This is Alex from DTCC Tech Support. 
-
-In order to request a transcript, you can visit our Transcript Request page: https://www.dtcc.edu/student-resources/transcript. If you are a current student or have taken a class in the past two years, you should choose option #1. Otherwise, please choose option #2.
-
-Thank you for your time.

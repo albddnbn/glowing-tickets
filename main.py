@@ -9,7 +9,6 @@ def hover(event_data):
     widget = event_data.widget
     # if the widget has an image property value set - change it to the hover version
     if widget.image != None:
-        print("image isnt none")
         widget.image = f"{widget.image[:-4]}_hover.png"
         if "home" not in widget.image:
             widget.height = widget.width = 25
@@ -39,19 +38,29 @@ def normal_btn(event_data):
         
         widget.text_color = "white"
 
-def switch_windows(tohide, toshow):
-    tohide.hide()
-
-    toshow.show()
-
 # function that will erase the pre-existing content in a text box when textbox is clicked on
 def erase_value(event_data):
     widget = event_data.widget
     widget.value = ""
     # set widget when clicked to nothing because you don't want user to click on the textbox while typing and lose all theyve typed
-    widget.when_clicked = ""
+    widget.when_clicked = None
 # SHOULD I STORE EACH RESPONSE AS A SEPARATE TXT FILE - TITLED THE SAME AS THE BUTTON IS TITLED? OR JUST HAVE ONE TXT ? I THINK ONE FOR EACH AT THIS POINT
 def main():
+    def switch_windows(tohide, toshow):
+        tohide.hide()
+        rebuild_windows()
+        toshow.show()
+    def rebuild_windows():
+        # if add window is reloaded, put the initial text back in the textboxes, and reassign the textboxes the erase_value function when clicked
+        name_txtbox.value = "Enter user's name here then click a button"
+        add_title_txtbox.value = "Enter response title"
+        add_resp_txtbox.value = "Please use $ticketowner in place of ticket owner (user's) name."
+
+        name_txtbox.when_clicked = erase_value
+        add_title_txtbox.when_clicked = erase_value
+        add_resp_txtbox.when_clicked = erase_value
+
+
     def copyto_clip(title, name_txtbox):
         usersname = name_txtbox.value
         # for title in resp_btns.keys():
@@ -68,8 +77,7 @@ def main():
             new_string += f"{line_w_name}"
         pyperclip.copy(new_string)
         
-        print('[**] DEBUG: Content copied.')
-        # app.info('Content copied.')
+        # print('[**] DEBUG: Content copied.')
     # this funciton will present user with the responses they have saved (it will actually present a window, which will have a textbox at the top to type a name, 
     # and then it will create a button for each response that the user has created. If the user clicks a button, it will copy the response to the user's clipboard 
     # WITH the name that the user typed into the top textbox inserted into the response. Then the user can just paste the response into OSTicket and reply quickly
@@ -285,6 +293,7 @@ def main():
     Box(add_title_box, height="fill", width=30, align="left")
     add_title_txtbox = TextBox(add_title_box, text="Enter response title", align="left", width=60)
     add_title_txtbox.bg = "#EAFEF1"
+    add_title_txtbox.when_clicked = erase_value
     # add_title_txtbox.text_color = "white"
 
     # box where user types response:
@@ -295,7 +304,7 @@ def main():
 
     add_resp_txtbox = TextBox(add_resp_box, height="fill", width=65, text="Please use $ticketowner in place of ticket owner (user's) name.", multiline=True, scrollbar=True)
     add_resp_txtbox.bg = "#EAFEF1"
-
+    add_resp_txtbox.when_clicked = erase_value
     # add submit new reponse button to bottom the add response Window
     add_resp_btm_box = Box(windows["add"], height=50, width="fill")
     reg_buttons["create"] = PushButton(add_resp_btm_box, text="Create response", height=25, width=40)
@@ -351,6 +360,7 @@ def main():
 
     Box(button_box, align="right", height="fill", width=150)
     reg_buttons["add"] = PushButton(button_box, text="Add Response", align="right", width=15)
+    reg_buttons["add"].text_size = 14
 
     # set reg_buttons settings - dark blue bg, white text color, roboto font etc.
     for button in reg_buttons.keys():
